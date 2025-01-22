@@ -25,10 +25,10 @@ function setup() {
 
 
 class Wave{
-    constructor(A, period) {
+    constructor(A, period,wavelength) {
     this.amplitude = A;
     this.period = (period == 0)? 1:period;
-    this.wavelength = (period == 0)? 1:period
+    this.wavelength = (wavelength == 0)? 1:wavelength
     this.angFreq = (PI*2)/this.period
     this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount)
     print(this.wave(5))
@@ -71,6 +71,7 @@ function mousePressed(){
     return
   }
     timeStart = clock
+    waveStart = frameCount
 }
   
 function mouseReleased(){
@@ -78,10 +79,11 @@ function mouseReleased(){
     return
   }
   timeStop = clock
+  waveStop = frameCount
   print(timeStop - timeStart)
   
   AmplitudeTemp = abs(mouseY - height/2)
-  waves.push( new Wave(AmplitudeTemp,timeStop-timeStart))
+  waves.push( new Wave(AmplitudeTemp,timeStop-timeStart,waveStop-waveStart))
 }
   
 // mobile
@@ -91,6 +93,7 @@ function touchStarted(){
   if (mouseX > width || mouseX <0 || mouseY < 0 || mouseY >= height){
     return
   }
+    waveStsrt = frameCount
     timeStart = clock
 }
   
@@ -100,10 +103,11 @@ function touchEnded(){
     return
   }
   timeStop = clock
+  waveStop = frameCount
   print(timeStop - timeStart)
   
   AmplitudeTemp = abs(mouseY - height/2)
-  waves.push( new Wave(AmplitudeTemp,timeStop-timeStart))
+  waves.push( new Wave(AmplitudeTemp,timeStop-timeStart,waveStop-waveStart))
 }
   
 function timeIncrease(){
