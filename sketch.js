@@ -55,7 +55,7 @@ function draw() {
     }
     point(j,amplitude+height/2)
   }}
-    text(waveStrings,10,height)
+    text(waveStrings,10,height-10)
   
 }
   
