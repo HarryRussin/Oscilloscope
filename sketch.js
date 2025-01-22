@@ -15,7 +15,7 @@ function setup() {
     
   let button = createButton("reset sketch");
   button.mousePressed(resetSketch);
-  createCanvas(800, 400);
+  createCanvas(600, 400);
   background(222)
   rectMode(CENTER)
   
@@ -30,7 +30,7 @@ class Wave{
     this.period = period;
     this.wavelength = period
     this.angFreq = (PI*2)/this.period
-    this.wave = (x)=>this.amplitude*cos(x*this.angFreq)
+    this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount)
     print(this.wave(5))
     waveStrings += (`f(y,t) = ${this.amplitude}(ky - ${this.angFreq.toPrecision(2)}t)    `)
 }
