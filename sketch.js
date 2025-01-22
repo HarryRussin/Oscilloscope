@@ -53,6 +53,10 @@ function draw() {
       amplitude += waves[i].wave(j)
       
     }
+    if (j<=width/2+0.5 && j>=width/2-0.5 ){
+      stroke('red')
+      strokeWeight(3)
+    }else{stroke('black');strokeWeight(1)}
     point(j,amplitude+height/2)
   }}
     text(waveStrings,10,height-10)
