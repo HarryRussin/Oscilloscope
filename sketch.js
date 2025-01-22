@@ -28,9 +28,9 @@ class Wave{
     constructor(A, period,wavelength) {
     this.amplitude = A;
     this.period = (period == 0)? 1:period;
-    this.wavelength = (wavelength == 0)? 1:wavelength
+    this.wavelength = (wavelength == 0)? 1:wavelength*3
     this.angFreq = (PI*2)/this.period
-    this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount)
+    this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount*2)
     print(this.wave(5))
     waveStrings += (`f(y,t) = ${this.amplitude.toPrecision(2)}(${((2*PI)/this.wavelength).toPrecision(2)}y - ${this.angFreq.toPrecision(2)}t)    `)
 }
