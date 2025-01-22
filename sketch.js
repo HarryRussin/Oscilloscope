@@ -93,7 +93,7 @@ function touchStarted(){
   if (mouseX > width || mouseX <0 || mouseY < 0 || mouseY >= height){
     return
   }
-    waveStsrt = frameCount
+    waveStart = frameCount
     timeStart = clock
 }
   
