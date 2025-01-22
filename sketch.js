@@ -27,8 +27,8 @@ function setup() {
 class Wave{
     constructor(A, period) {
     this.amplitude = A;
-    this.period = period;
-    this.wavelength = period
+    this.period = (period == 0)? 1:period;
+    this.wavelength = (period == 0)? 1:period
     this.angFreq = (PI*2)/this.period
     this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount)
     print(this.wave(5))
@@ -74,6 +74,28 @@ function mousePressed(){
 }
   
 function mouseReleased(){
+    if (mouseX > width || mouseX <0 || mouseY < 0 || mouseY >= height){
+    return
+  }
+  timeStop = clock
+  print(timeStop - timeStart)
+  
+  AmplitudeTemp = abs(mouseY - height/2)
+  waves.push( new Wave(AmplitudeTemp,timeStop-timeStart))
+}
+  
+// mobile
+function touchStarted(){
+  print(touches)
+  print('touch started')
+  if (mouseX > width || mouseX <0 || mouseY < 0 || mouseY >= height){
+    return
+  }
+    timeStart = clock
+}
+  
+function touchEnded(){
+  print('touchended')
     if (mouseX > width || mouseX <0 || mouseY < 0 || mouseY >= height){
     return
   }
