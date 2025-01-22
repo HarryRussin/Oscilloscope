@@ -32,7 +32,7 @@ class Wave{
     this.angFreq = (PI*2)/this.period
     this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount)
     print(this.wave(5))
-    waveStrings += (`f(y,t) = ${this.amplitude}(ky - ${this.angFreq.toPrecision(2)}t)    `)
+    waveStrings += (`f(y,t) = ${this.amplitude.toPrecision(2)}(${((2*PI)/this.wavelength).toPrecision(2)}y - ${this.angFreq.toPrecision(2)}t)    `)
 }
 }
 
