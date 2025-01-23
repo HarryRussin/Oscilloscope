@@ -34,8 +34,9 @@ class Wave{
     this.angFreq = (PI*2)/this.period
     this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount)
     print(this.wave(5))
-    waveStrings += (`f(z,t) = ${this.amplitude.toPrecision(2)}(${((2*PI)/this.wavelength).toPrecision(2)}z - ${this.angFreq.toPrecision(2)}t)    `)
-}
+    
+    !drawing&&(waveStrings += (`f(z,t) = ${this.amplitude.toPrecision(2)}(${((2*PI)/this.wavelength).toPrecision(2)}z - ${this.angFreq.toPrecision(2)}t)    `)
+)}
 }
 
 function draw() {
@@ -70,7 +71,7 @@ function draw() {
   
   if (tempwave){
     for (let j = 0; j < width; j+=pointDensity){
-      stroke('blue')
+      stroke('green')
       point(j,tempwave.wave(j)+height/2)
       stroke('black')
   }}
