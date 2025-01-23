@@ -10,6 +10,8 @@ const pointDensity = 0.05;
 const waveSpeed = 1;
 var speedCount = 0;
 var waveStrings = ''
+var tempwave;
+var drawing = false
 
 function setup() {
     
@@ -28,11 +30,11 @@ class Wave{
     constructor(A, period,wavelength) {
     this.amplitude = A;
     this.period = (period == 0)? 1:period;
-    this.wavelength = (wavelength == 0)? 1:wavelength*3
+    this.wavelength = (wavelength == 0)? 1:wavelength*2
     this.angFreq = (PI*2)/this.period
-    this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount*2)
+    this.wave = (x)=>this.amplitude*cos(x*2*PI/this.wavelength -this.angFreq*frameCount)
     print(this.wave(5))
-    waveStrings += (`f(y,t) = ${this.amplitude.toPrecision(2)}(${((2*PI)/this.wavelength).toPrecision(2)}y - ${this.angFreq.toPrecision(2)}t)    `)
+    waveStrings += (`f(z,t) = ${this.amplitude.toPrecision(2)}(${((2*PI)/this.wavelength).toPrecision(2)}z - ${this.angFreq.toPrecision(2)}t)    `)
 }
 }
 
@@ -61,6 +63,18 @@ function draw() {
   }}
     text(waveStrings,10,height-10)
   
+  if (drawing){
+    Amplitudetemp = abs(mouseY - height/2)
+    tempwave=new Wave(Amplitudetemp,clock-timeStart,frameCount-waveStart)
+  }
+  
+  if (tempwave){
+    for (let j = 0; j < width; j+=pointDensity){
+      stroke('blue')
+      point(j,tempwave.wave(j)+height/2)
+      stroke('black')
+  }}
+  
 }
   
 
@@ -70,6 +84,7 @@ function mousePressed(){
   if (mouseX > width || mouseX <0 || mouseY < 0 || mouseY >= height){
     return
   }
+    drawing = true
     timeStart = clock
     waveStart = frameCount
 }
@@ -81,9 +96,11 @@ function mouseReleased(){
   timeStop = clock
   waveStop = frameCount
   print(timeStop - timeStart)
+  drawing = false
   
   AmplitudeTemp = abs(mouseY - height/2)
   waves.push( new Wave(AmplitudeTemp,timeStop-timeStart,waveStop-waveStart))
+  tempwave = 0
 }
   
 // mobile
@@ -95,6 +112,7 @@ function touchStarted(){
   }
     waveStart = frameCount
     timeStart = clock
+    drawing = true
 }
   
 function touchEnded(){
@@ -105,6 +123,8 @@ function touchEnded(){
   timeStop = clock
   waveStop = frameCount
   print(timeStop - timeStart)
+  drawing = false
+  tempwave = 0
   
   AmplitudeTemp = abs(mouseY - height/2)
   waves.push( new Wave(AmplitudeTemp,timeStop-timeStart,waveStop-waveStart))
